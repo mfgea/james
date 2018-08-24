@@ -6,6 +6,7 @@ import NoRequests from '../component/requests/no-requests.js';
 import Search from '../component/requests/search.js';
 import Requests from '../component/requests/requests.js';
 import InspectRequest from '../component/inspect-request/inspect-request.js';
+import ClearList from '../component/clear-list/clear-list';
 
 const RequestsContainer = ({hasRequests, clearContextRequest}) => {
   const handleClick = (evt) => {
@@ -19,6 +20,7 @@ const RequestsContainer = ({hasRequests, clearContextRequest}) => {
     output = <span onClick={handleClick} onContextMenu={handleClick}>
       <div className="header">
         <Search />
+        <ClearList />
       </div>
       <Requests />
       <InspectRequest />

@@ -9,17 +9,39 @@
 
   .header {
     margin: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
     .search {
       @extend .card;
       margin: 0;
       padding: 0;
+      flex: 1;
 
       input[type="text"] {
         margin: 0;
         border: 0;
         box-shadow: none;
-        height: 25px;
+        height: 35px;
         padding: 5px 15px;
+        box-sizing: border-box;
+      }
+    }
+
+    .clear-btn {
+      display: block;
+      line-height: 25px;
+      padding: 5px 5px;
+      cursor: pointer;
+      background: none;
+      border: 0;
+      text-align: center;
+      box-sizing: border-box;
+      color: rgba(0, 0, 0, .5);
+
+      .fa {
+        padding: 5px;
       }
     }
   }

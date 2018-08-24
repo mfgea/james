@@ -43,11 +43,21 @@ function context(state = initialState.context, action) {
 }
 
 function data(state = initialState.data, action) {
-  if (action.type !== actions.SYNC_REQUESTS) {
-    return state;
+  if (action.type === actions.SYNC_REQUESTS) {
+    return action.requestData;
   }
-  return action.requestData;
+  if(action.type === actions.CLEAR_REQUESTS) {
+    return {
+      ...state,
+      data: {
+        ...state.data,
+        requests: []
+      },
+    };
+  }
+  return state;
 }
+
 
 export default combineReducers({
   filter,
