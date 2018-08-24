@@ -19,6 +19,10 @@ const middleware = store => next => action => {
   const { proxy: state, requests: requestState } = store.getState();
 
   switch (action.type) {
+  case actions.TOGGLE_CORS:
+    ipc.send('proxy-cors-toggle', {enabled: state.corsEnabled});
+    break;
+
   case actions.TOGGLE_CACHING:
     ipc.send('proxy-cache-toggle', {enabled: state.cachingEnabled});
     break;

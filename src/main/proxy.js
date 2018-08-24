@@ -14,6 +14,7 @@ class ProxyHandler extends EventEmitter {
     this.hoxy = undefined;
     this.filter = undefined;
     this.status = undefined;
+    this.corsEnabled = false;
     this.cachingEnabled = false;
 
     this.onStatusChange_({status: constants.PROXY_STATUS_STARTING});
@@ -22,7 +23,8 @@ class ProxyHandler extends EventEmitter {
       config,
       urlMapper,
       this.createHoxy.bind(this),
-      this.isCaching.bind(this)
+      this.isCaching.bind(this),
+      this.isCors.bind(this)
     );
   }
 
@@ -134,12 +136,20 @@ class ProxyHandler extends EventEmitter {
     this.emit('status', status);
   }
 
+  setCors(cors) {
+    this.corsEnabled = cors;
+  }
+
+  isCors() {
+    return this.corsEnabled;
+  }
+
   setCaching(caching) {
-    this.isCaching = caching;
+    this.cachingEnabled = caching;
   }
 
   isCaching() {
-    return this.isCaching;
+    return this.cachingEnabled;
   }
 
   setFilter(filter) {

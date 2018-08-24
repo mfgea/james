@@ -7,6 +7,7 @@ import * as actions from 'common/actions/proxy.js';
 const initialState = {
   status: constants.PROXY_STATUS_STARTING,
   statusReason: null,
+  corsEnabled: false,
   cachingEnabled: false,
   throttleEnabled: false,
   throttleRate: 0
@@ -26,6 +27,13 @@ function statusReason(state = initialState.statusReason, action) {
     return state;
   }
   return action.reason || state;
+}
+
+function corsEnabled(state = initialState.corsEnabled, action) {
+  if (action.type !== actions.TOGGLE_CORS) {
+    return state;
+  }
+  return !state;
 }
 
 function cachingEnabled(state = initialState.cachingEnabled, action) {
@@ -52,6 +60,7 @@ function throttleRate(state = initialState.throttleRate, action) {
 export default combineReducers({
   status,
   statusReason,
+  corsEnabled,
   cachingEnabled,
   throttleEnabled,
   throttleRate

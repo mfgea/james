@@ -3,16 +3,18 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import CacheButton from './cache.js';
+import CorsButton from './cors.js';
 import Throttle from './throttle.js';
 import RequestCount from './request-count.js';
 import ProxyStatus from './proxy-status.js';
 import UpdateStatus from './update-status';
 
-import { 
+import {
   ProxyStatus as ProxyStatusTypes,
   UpdateStatus as UpdateStatusTypes
 } from 'common/prop-types';
 import {
+  toggleCors,
   toggleCaching,
   toggleThrottling as toggleThrottle,
   setThrottleRate,
@@ -25,6 +27,10 @@ import { getProxyState } from '../../reducers/proxy.js';
 
 const Footer = props =>
   <div className="footer">
+    <CorsButton
+      corsEnabled={props.corsEnabled}
+      toggleCors={props.toggleCors}
+    />
     <CacheButton
       cachingEnabled={props.cachingEnabled}
       toggleCaching={props.toggleCaching}
@@ -50,6 +56,8 @@ const Footer = props =>
   </div>;
 
 Footer.propTypes = {
+  corsEnabled: PropTypes.bool.isRequired,
+  toggleCors: PropTypes.func.isRequired,
   cachingEnabled: PropTypes.bool.isRequired,
   toggleCaching: PropTypes.func.isRequired,
   proxyStatus: ProxyStatusTypes.isRequired,
@@ -70,6 +78,7 @@ const mapStateToProps = (state) => {
   const update = getUpdateStatus(state);
 
   return {
+    corsEnabled: proxy.corsEnabled,
     cachingEnabled: proxy.cachingEnabled,
     throttleEnabled: proxy.throttleEnabled,
     throttleRate: proxy.throttleRate,
@@ -82,6 +91,7 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = {
+  toggleCors,
   toggleCaching,
   toggleThrottle,
   setThrottleRate,

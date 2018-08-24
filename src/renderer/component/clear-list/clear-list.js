@@ -31,7 +31,7 @@ ClearList.propTypes = {
   clearRequests: PropTypes.func.isRequired
 };
 
-import { clearRequests } from 'common/actions/requests.js';
+import { clearRequests } from 'common/actions/proxy';
 
 const mapDispatchToProps = {
   clearRequests

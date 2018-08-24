@@ -1,12 +1,13 @@
 import uniqid from 'uniqid';
 
 export default class Proxy {
-  constructor(update, config, urlMapper, createHoxy) {
+  constructor(update, config, urlMapper, createHoxy, isCaching, isCors) {
     this._requests = [];
     this._urlMapper = urlMapper;
     this._config = config;
     this._update = update;
-    this._isCachingEnabled = false;
+    this._isCachingEnabled = isCaching;
+    this._isCorsEnabled = isCors;
 
     this._proxy = createHoxy();
     this._proxy.intercept('response-sent', this._onResponseSent.bind(this));
@@ -22,7 +23,7 @@ export default class Proxy {
   }
 
   _onInterceptResponse(request, response) {
-    if (!this._isCachingEnabled) {
+    if (!this._isCachingEnabled()) {
       delete response.headers['if-modified-since'];
       delete response.headers['if-none-match'];
       delete response.headers['last-modified'];
@@ -31,6 +32,11 @@ export default class Proxy {
       response.headers.expires = '0';
       response.headers.pragma = 'no-cache';
       response.headers['cache-control'] = 'no-cache';
+    }
+    if(this._isCorsEnabled()) {
+      response.headers['access-control-allow-origin'] = '*';
+      response.headers['access-control-allow-headers'] = 'Origin, X-Requested-With, Content-Type, Accept';
+      response.headers['x-forced-cors'] = 'true';
     }
   }
 

@@ -23,6 +23,7 @@
     padding: 0;
   }
 
+  .cors-button,
   .cache-button {
     display: inline;
   }
@@ -58,19 +59,19 @@
       color: $grapefruit-dark;
     }
   }
-  
+
    .update-status {
      display: inline;
      float: right;
-  
+
      &.has-action {
        cursor: pointer;
      }
-  
+
      &.ready i {
        color: $grass-dark;
      }
-  
+
      &.error i {
        color: $grapefruit-dark;
      }

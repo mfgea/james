@@ -80,7 +80,7 @@ Raven.context(() => {
           mappings
         });
       });
-    
+
       mainWindow.show();
       autoUpdater(mainWindow, !constants.DEV);
     });
@@ -88,6 +88,10 @@ Raven.context(() => {
     ipc.on('proxy-get-request', (evt, {id}) => {
       const request = proxy.getRequest(id);
       evt.returnValue = request; // note: not async
+    });
+
+    ipc.on('proxy-cors-toggle', (evt, {enabled}) => {
+      proxy.setCors(enabled);
     });
 
     ipc.on('proxy-cache-toggle', (evt, {enabled}) => {
@@ -101,7 +105,7 @@ Raven.context(() => {
         proxy.proxy.disableThrottling();
       }
     });
-  
+
     ipc.on('proxy-filter', (evt, {filter}) => {
       proxy.setFilter(filter);
     });

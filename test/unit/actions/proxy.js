@@ -4,6 +4,13 @@ import * as actions from 'common/actions/proxy.js';
 import constants from 'common/constants.js';
 
 describe('proxy actions', () => {
+  it('should create an action to toggle cors headers', () => {
+    const expectedAction = {
+      type: actions.TOGGLE_CORS
+    };
+    assert.deepEqual(actions.toggleCors(), expectedAction);
+  });
+
   it('should create an action to toggle caching', () => {
     const expectedAction = {
       type: actions.TOGGLE_CACHING
