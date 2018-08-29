@@ -4,11 +4,16 @@ import { navigateToRequests } from './app.js';
 export const ADD_BROWSERS = 'ADD_BROWSERS';
 export const DISABLE_BROWSER = 'DISABLE_BROWSER';
 
-export function launchBrowser(browser) {
+export function launchBrowser(browser, options) {
   return (dispatch) => {
     const options = {
       browser: browser.name,
-      version: browser.version
+      version: browser.version,
+      noProxy: [
+        'local.mlb.com',
+        'localhost',
+        '127.0.0.1',
+      ],
     };
     return openBrowser(options)
       .then(() => { dispatch(navigateToRequests()); })

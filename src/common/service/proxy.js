@@ -33,9 +33,11 @@ export default class Proxy {
       response.headers.pragma = 'no-cache';
       response.headers['cache-control'] = 'no-cache';
     }
-    if(this._isCorsEnabled()) {
+    if(request.isMappedUrl && this._isCorsEnabled()) {
       response.headers['access-control-allow-origin'] = '*';
-      response.headers['access-control-allow-headers'] = 'Origin, X-Requested-With, Content-Type, Accept';
+      response.headers['access-control-allow-credentials'] = true;
+      response.headers['access-control-allow-headers'] = request.headers['access-control-request-headers'];
+      response.headers['access-control-allow-methods'] = request.headers['access-control-request-method'];
       response.headers['x-forced-cors'] = 'true';
     }
   }
