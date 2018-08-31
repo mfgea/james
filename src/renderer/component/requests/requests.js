@@ -13,6 +13,7 @@ const Requests = ({requestData, activeRequest, contextRequest, labels, handleCli
       request={request}
       response={response}
       done={request.done}
+      sendCors={request.sendCors}
       isActive={isActive}
       isContextMenu={isContextMenu}
       labels={labels}

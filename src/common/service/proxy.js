@@ -33,7 +33,7 @@ export default class Proxy {
       response.headers.pragma = 'no-cache';
       response.headers['cache-control'] = 'no-cache';
     }
-    if(request.isMappedUrl && this._isCorsEnabled()) {
+    if((request.isMappedUrl && request.sendCorsForMapping) || this._isCorsEnabled()) {
       response.headers['access-control-allow-origin'] = '*';
       response.headers['access-control-allow-credentials'] = true;
       response.headers['access-control-allow-headers'] = request.headers['access-control-request-headers'];
@@ -68,6 +68,7 @@ export default class Proxy {
       }
 
       request.isMappingActive = this._urlMapper.isActiveMappedUrl(fullUrl);
+      request.sendCorsForMapping = this._urlMapper.shouldSendCors(fullUrl);
       request.isMappedUrl = this._urlMapper.isMappedUrl(fullUrl);
 
       if (request.isMappingActive) {

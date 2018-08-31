@@ -9,6 +9,7 @@ class Request extends React.Component {
   shouldComponentUpdate(nextProps) {
     return this.props.request.id !== nextProps.request.id ||
       this.props.isActive !== nextProps.isActive ||
+      this.props.sendCors !== nextProps.sendCors ||
       this.props.isContextMenu !== nextProps.isContextMenu ||
       this.props.request.done !== nextProps.request.done;
   }
@@ -18,6 +19,7 @@ class Request extends React.Component {
       labels,
       request,
       response,
+      sendCors,
       isActive,
       isContextMenu,
       handleClick,
@@ -35,6 +37,10 @@ class Request extends React.Component {
     const requestClasses = ['request'];
     if (isActive) {
       requestClasses.push('request-active');
+    }
+
+    if (sendCors) {
+      requestClasses.push('request-using-cors');
     }
 
     let contextMenuNode = null;
@@ -65,6 +71,7 @@ Request.propTypes = {
   request: PropTypes.object.isRequired,
   response: PropTypes.object.isRequired,
   done: PropTypes.bool,
+  sendCors: PropTypes.bool,
   isActive: PropTypes.bool,
   isContextMenu: PropTypes.bool,
   handleClick: PropTypes.func.isRequired,

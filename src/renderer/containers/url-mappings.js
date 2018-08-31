@@ -10,6 +10,7 @@ const UrlMappingsContainer = (props) => {
     urlMappings,
     setUrlMapping,
     toggleUrlMapping,
+    toggleUrlMappingCors,
     removeUrlMapping
   } = props;
 
@@ -17,6 +18,7 @@ const UrlMappingsContainer = (props) => {
     return <UrlMapping key={index}
       mapping={mapping}
       toggleActive={toggleUrlMapping}
+      toggleCors={toggleUrlMappingCors}
       remove={removeUrlMapping}
     />;
   });
@@ -37,11 +39,12 @@ UrlMappingsContainer.propTypes = {
   urlMappings: PropTypes.array.isRequired,
   setUrlMapping: PropTypes.func.isRequired,
   toggleUrlMapping: PropTypes.func.isRequired,
+  toggleUrlMappingCors: PropTypes.func.isRequired,
   removeUrlMapping: PropTypes.func.isRequired
 };
 
 
-import { setUrlMapping, toggleUrlMapping, removeUrlMapping } from 'common/actions/url-mappings.js';
+import { setUrlMapping, toggleUrlMapping, toggleUrlMappingCors, removeUrlMapping } from 'common/actions/url-mappings.js';
 import { getMappings } from '../reducers/url-mappings.js';
 
 const mapStateToProps = (state) => ({
@@ -51,6 +54,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = {
   setUrlMapping,
   toggleUrlMapping,
+  toggleUrlMappingCors,
   removeUrlMapping
 };
 

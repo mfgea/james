@@ -13,6 +13,10 @@ const middleware = () => next => action => {
     ipc.send('mappings-toggle', {url: mapping.url});
     break;
 
+  case actions.TOGGLE_URL_MAPPING_CORS:
+    ipc.send('mappings-toggle-cors', {url: mapping.url});
+    break;
+
   case actions.REMOVE_URL_MAPPING:
     ipc.send('mappings-remove', {url: mapping.url});
     break;

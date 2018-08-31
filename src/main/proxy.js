@@ -1,4 +1,4 @@
-import hoxy from 'hoxy';
+import hoxy from '@mfgea/hoxy';
 import fs from 'fs';
 import EventEmitter from 'events';
 

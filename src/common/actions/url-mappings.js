@@ -6,6 +6,7 @@ export const SET_URL_MAPPING = 'SET_URL_MAPPING';
 export const UPDATE_URL_MAPPING = 'UPDATE_URL_MAPPING';
 export const REMOVE_URL_MAPPING = 'REMOVE_URL_MAPPING';
 export const TOGGLE_URL_MAPPING = 'TOGGLE_URL_MAPPING';
+export const TOGGLE_URL_MAPPING_CORS = 'TOGGLE_URL_MAPPING_CORS';
 export const SYNC_URL_MAPPINGS = 'SYNC_URL_MAPPINGS';
 
 export const NEW_MAPPING_UPDATE = 'NEW_MAPPING_UPDATE';
@@ -21,14 +22,15 @@ export function showAddUrlMapping(url) {
   };
 }
 
-export function setUrlMapping(url, newUrl, isLocal = false, isActive = true) {
+export function setUrlMapping(url, newUrl, isLocal = false, sendCors = false, isActive = true) {
   return {
     type: SET_URL_MAPPING,
     mapping: {
       url,
       newUrl,
       isLocal,
-      isActive
+      isActive,
+      sendCors,
     }
   };
 }
@@ -36,6 +38,15 @@ export function setUrlMapping(url, newUrl, isLocal = false, isActive = true) {
 export function removeUrlMapping(url) {
   return {
     type: REMOVE_URL_MAPPING,
+    mapping: {
+      url
+    }
+  };
+}
+
+export function toggleUrlMappingCors(url) {
+  return {
+    type: TOGGLE_URL_MAPPING_CORS,
     mapping: {
       url
     }

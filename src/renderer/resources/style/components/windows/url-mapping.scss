@@ -14,6 +14,19 @@
       margin: 0;
       border: 0;
     }
+
+    .mapping-config.open {
+      display: block;
+    }
+
+    .mapping-config {
+      display: none;
+    }
+
+    .secondary-content {
+      cursor: pointer;
+    }
+
   }
 
   input.col {

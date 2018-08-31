@@ -34,7 +34,7 @@ function getDSN() {
 }
 
 export default function init(Raven) {
-  const enabled = !config.DEV;
+  const enabled = !config.DEV && config.sentry && config.sentry.enabled;
   Raven.config(enabled && getDSN(), {
     release: config.version
   }).install();

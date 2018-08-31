@@ -114,12 +114,16 @@ Raven.context(() => {
       proxy.proxy.clear();
     });
 
-    ipc.on('mappings-set', (evt, {url, newUrl, isLocal, isActive}) => {
-      urlMapper.urlMapper.set(url, newUrl, isLocal, isActive);
+    ipc.on('mappings-set', (evt, {url, newUrl, isLocal, sendCors, isActive}) => {
+      urlMapper.urlMapper.set(url, newUrl, isLocal, sendCors, isActive);
     });
 
     ipc.on('mappings-toggle', (evt, {url}) => {
       urlMapper.urlMapper.toggleActiveState(url);
+    });
+
+    ipc.on('mappings-toggle-cors', (evt, {url}) => {
+      urlMapper.urlMapper.toggleSendCorsState(url);
     });
 
     ipc.on('mappings-remove', (evt, {url}) => {

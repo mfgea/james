@@ -68,7 +68,7 @@ export default class UrlMapper {
     return matches[0];
   }
 
-  set(url, newUrl, isLocal = true, isActive = true) {
+  set(url, newUrl, isLocal = true, sendCors = false, isActive = true) {
     url = UrlMapper.prepare(url);
     newUrl = newUrl.trim();
 
@@ -80,7 +80,8 @@ export default class UrlMapper {
       url,
       newUrl,
       isLocal,
-      isActive
+      isActive,
+      sendCors
     };
 
     this._addMemoryCopy(mappedUrl);
@@ -96,6 +97,10 @@ export default class UrlMapper {
     return this.isMappedUrl(url) && this.get(url).isActive;
   }
 
+  shouldSendCors(url) {
+    return this.isMappedUrl(url) && this.get(url).sendCors;
+  }
+
   isMappedUrl(url) {
     return !!this.get(url);
   }
@@ -105,6 +110,15 @@ export default class UrlMapper {
     const mapping = this.get(url);
     mapping.isActive = !mapping.isActive;
     this._db.update({url}, {$set: {isActive: mapping.isActive}}, {}, () => {
+      this._update();
+    });
+  }
+
+  toggleSendCorsState(url) {
+    if (!this.isMappedUrl(url)) return;
+    const mapping = this.get(url);
+    mapping.sendCors = !mapping.sendCors;
+    this._db.update({url}, {$set: {sendCors: mapping.sendCors}}, {}, () => {
       this._update();
     });
   }
