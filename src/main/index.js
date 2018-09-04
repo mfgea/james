@@ -143,3 +143,12 @@ Raven.context(() => {
     localShortcut.register(mainWindow, key, () => event.sender.send('keyboard-press', key));
   });
 });
+
+process.on('uncaughtException', (err) => {
+  console.log('uncaught exception', err);
+});
+
+process.on('unhandledRejection', (reason, p) => {
+  console.log('Unhandled Rejection at:', p, 'reason:', reason);
+  // application specific logging, throwing an error, or other logic here
+});

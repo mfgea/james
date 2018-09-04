@@ -8,7 +8,12 @@ const defaultOptions = {
 export default function openBrowser(options) {
   const launchOptions = {
     ...defaultOptions,
-    ...options
+    ...options,
+    noProxy: [
+      'local.mlb.com',
+      'localhost',
+      '127.0.0.1',
+    ],
   };
 
   return new Promise((resolve, reject) => {
